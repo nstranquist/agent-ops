@@ -10,7 +10,7 @@ import (
 
 func fleetBoardMain() {
 	if len(os.Args) < 2 || os.Args[1] != "show" {
-		fmt.Fprintln(os.Stderr, "usage: fleetboard show --slots file.json | --dir agent-dir")
+		fmt.Fprintln(os.Stderr, "usage: agent-ops fleet show --slots file.json | --dir agent-dir")
 		os.Exit(2)
 	}
 	var slotsPath, dir string

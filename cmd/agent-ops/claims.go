@@ -10,7 +10,7 @@ import (
 
 func claimGuardMain() {
 	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "usage: claimguard check|version ...")
+		fmt.Fprintln(os.Stderr, "usage: agent-ops claims check|version ...")
 		os.Exit(2)
 	}
 	if os.Args[1] == "version" {
@@ -18,7 +18,7 @@ func claimGuardMain() {
 		return
 	}
 	if os.Args[1] != "check" {
-		fmt.Fprintln(os.Stderr, "usage: claimguard check --claims claims.yaml --file draft.md")
+		fmt.Fprintln(os.Stderr, "usage: agent-ops claims check --claims claims.yaml --file draft.md")
 		os.Exit(2)
 	}
 	var claimsPath, filePath string

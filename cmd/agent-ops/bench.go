@@ -9,7 +9,7 @@ import (
 
 func prBenchMain() {
 	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "usage: prbench score|review|leaderboard ...")
+		fmt.Fprintln(os.Stderr, "usage: agent-ops bench score|review|leaderboard ...")
 		os.Exit(2)
 	}
 	switch os.Args[1] {
@@ -49,7 +49,7 @@ func prBenchMain() {
 			}
 		}
 		if diffPath == "" {
-			fmt.Fprintln(os.Stderr, "usage: prbench review --diff patch.diff [--gold gold.json]")
+			fmt.Fprintln(os.Stderr, "usage: agent-ops bench review --diff patch.diff [--gold gold.json]")
 			os.Exit(2)
 		}
 		b, err := os.ReadFile(diffPath)
@@ -85,7 +85,7 @@ func prBenchMain() {
 			}
 		}
 		if diffPath == "" || goldPath == "" {
-			fmt.Fprintln(os.Stderr, "usage: prbench leaderboard --diff p.diff --gold g.json [--html out.html]")
+			fmt.Fprintln(os.Stderr, "usage: agent-ops bench leaderboard --diff p.diff --gold g.json [--html out.html]")
 			os.Exit(2)
 		}
 		diff, err := os.ReadFile(diffPath)

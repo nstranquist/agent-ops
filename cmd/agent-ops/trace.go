@@ -12,7 +12,7 @@ import (
 
 func agentTraceMain() {
 	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "usage: agenttrace summarize|index|search|discover|index-discovered|doctor|version ...")
+		fmt.Fprintln(os.Stderr, "usage: agent-ops trace summarize|index|search|discover|index-discovered|doctor|version ...")
 		os.Exit(2)
 	}
 	switch os.Args[1] {
@@ -69,7 +69,7 @@ func agentTraceMain() {
 		encode(res)
 	case "summarize":
 		if len(os.Args) < 3 {
-			fmt.Fprintln(os.Stderr, "usage: agenttrace summarize <session.jsonl>")
+			fmt.Fprintln(os.Stderr, "usage: agent-ops trace summarize <session.jsonl>")
 			os.Exit(2)
 		}
 		path := os.Args[2]
@@ -100,7 +100,7 @@ func agentTraceMain() {
 			}
 		}
 		if session == "" {
-			fmt.Fprintln(os.Stderr, "usage: agenttrace index --db path.db <session.jsonl>")
+			fmt.Fprintln(os.Stderr, "usage: agent-ops trace index --db path.db <session.jsonl>")
 			os.Exit(2)
 		}
 		res, err := agenttrace.IndexSession(dbPath, session)
@@ -134,7 +134,7 @@ func agentTraceMain() {
 			}
 		}
 		if query == "" {
-			fmt.Fprintln(os.Stderr, "usage: agenttrace search --db path.db <query>")
+			fmt.Fprintln(os.Stderr, "usage: agent-ops trace search --db path.db <query>")
 			os.Exit(2)
 		}
 		hits, err := agenttrace.Search(dbPath, query, limit)

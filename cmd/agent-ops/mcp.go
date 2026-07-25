@@ -10,7 +10,7 @@ import (
 
 func mcpGateMain() {
 	if len(os.Args) < 2 || os.Args[1] != "decide" {
-		fmt.Fprintln(os.Stderr, "usage: mcpgate decide --policy policy.yaml --server S --tool T [--audit path.jsonl]")
+		fmt.Fprintln(os.Stderr, "usage: agent-ops mcp decide --policy policy.yaml --server S --tool T [--audit path.jsonl]")
 		os.Exit(2)
 	}
 	var policyPath, server, tool, auditPath string

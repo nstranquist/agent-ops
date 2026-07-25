@@ -47,7 +47,7 @@ and what was truncated — so a bad answer can be traced to a missing input rath
 than guessed at.
 
 ```sh
-agent-ops context select --chunks chunks.json --budget 8000
+agent-ops context pack --fixture chunks.json --budget 8000
 ```
 
 ### `mcp` — what the agent may call
@@ -56,8 +56,12 @@ A local policy gate for MCP tool calls. Evaluates allow/deny for
 log of every decision.
 
 ```sh
-agent-ops mcp check --policy policy.yaml --server github --tool create_pr
+agent-ops mcp decide --policy policy.yaml --server docs-puller --tool search   # allow → exit 0
+agent-ops mcp decide --policy policy.yaml --server github --tool create_pr     # deny  → exit 1
 ```
+
+**A deny exits non-zero**, so the gate composes directly into a shell guard
+without parsing its JSON. The audit line is appended either way.
 
 ### `claims` — what the agent said
 A fail-closed verified-claims gate for AI-generated text. Any quantified claim
@@ -74,8 +78,9 @@ digests, so "the evidence exists" is a checkable statement rather than a
 sentence in a status doc.
 
 ```sh
-agent-ops evidence capture --manifest manifest.yaml
-agent-ops evidence verify --manifest manifest.yaml
+agent-ops evidence init    --root ./pack --name release-proof
+agent-ops evidence capture --root ./pack --path proof.txt
+agent-ops evidence verify  --root ./pack --manifest manifest.yaml
 ```
 
 ### `bench` — how good the review is
@@ -92,7 +97,7 @@ A board for multi-agent parallel work. Merges agent slots from a JSON file or a
 directory of slot files into one view of who is doing what.
 
 ```sh
-agent-ops fleet board --slots slots.json
+agent-ops fleet show --slots slots.json
 ```
 
 ## Why one binary

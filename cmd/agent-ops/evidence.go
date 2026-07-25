@@ -10,7 +10,7 @@ import (
 
 func evidenceVaultMain() {
 	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "usage: evidence-vault verify|capture|init ...")
+		fmt.Fprintln(os.Stderr, "usage: agent-ops evidence verify|capture|init ...")
 		os.Exit(2)
 	}
 	switch os.Args[1] {
@@ -27,7 +27,7 @@ func evidenceVaultMain() {
 			}
 		}
 		if root == "" || man == "" {
-			fmt.Fprintln(os.Stderr, "usage: evidence-vault verify --root DIR --manifest manifest.yaml")
+			fmt.Fprintln(os.Stderr, "usage: agent-ops evidence verify --root DIR --manifest manifest.yaml")
 			os.Exit(2)
 		}
 		m, err := evidencevault.LoadManifest(man)
@@ -59,7 +59,7 @@ func evidenceVaultMain() {
 			}
 		}
 		if root == "" {
-			fmt.Fprintln(os.Stderr, "usage: evidence-vault capture --root DIR [--name NAME] [--path rel]...")
+			fmt.Fprintln(os.Stderr, "usage: agent-ops evidence capture --root DIR [--name NAME] [--path rel]...")
 			os.Exit(2)
 		}
 		res, err := evidencevault.Capture(root, name, paths)
@@ -83,7 +83,7 @@ func evidenceVaultMain() {
 			}
 		}
 		if root == "" {
-			fmt.Fprintln(os.Stderr, "usage: evidence-vault init --root DIR [--name NAME]")
+			fmt.Fprintln(os.Stderr, "usage: agent-ops evidence init --root DIR [--name NAME]")
 			os.Exit(2)
 		}
 		res, err := evidencevault.InitPack(root, name)

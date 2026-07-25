@@ -12,7 +12,7 @@ import (
 
 func contextPackMain() {
 	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "usage: contextpack pack|version ...")
+		fmt.Fprintln(os.Stderr, "usage: agent-ops context pack|version ...")
 		os.Exit(2)
 	}
 	if os.Args[1] == "version" {
