@@ -1,0 +1,5 @@
+[
+  {"id":"agent-1","host":"claude","worktree":"~/tools/agenttrace","status":"running","goal":"summarize sessions"},
+  {"id":"agent-2","host":"codex","worktree":"~/tools/claimguard","status":"queued","goal":"claims gate"},
+  {"id":"agent-3","host":"grok","worktree":"~/tools/mcpgate","status":"blocked","goal":"policy decide"}
+]

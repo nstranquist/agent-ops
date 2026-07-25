@@ -1,0 +1,5 @@
+[
+  {"id": "nil-deref", "severity": "high", "message": "possible nil pointer"},
+  {"id": "sql-inject", "severity": "critical", "message": "unsanitized SQL"},
+  {"id": "race", "severity": "medium", "message": "data race on map"}
+]

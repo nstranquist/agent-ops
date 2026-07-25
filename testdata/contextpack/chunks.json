@@ -1,0 +1,5 @@
+[
+  {"id":"catalog","source":"catalog","text":"AgentTrace is product.agenttrace for local session observability.","priority":1,"tier":"should"},
+  {"id":"docs","source":"docs","text":"ContextPack builds budgeted packs with verified receipts for omitted sources.","priority":2,"tier":"nice"},
+  {"id":"diff","source":"diff","text":"Added packing core and CLI entrypoint.","priority":0,"tier":"must"}
+]

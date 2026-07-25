@@ -1,0 +1,9 @@
+diff --git a/db.go b/db.go
+--- a/db.go
++++ b/db.go
+@@
++func load(u *User, id string) {
++  name := u.Profile.unwrap()
++  q := "SELECT * FROM users WHERE id=" + id
++  _ = name
++}

@@ -1,0 +1,38 @@
+schema_version: 1
+id: product.agent-ops
+name: agent-ops
+surface: products
+kind: product
+status: experimental
+persona: Local-first builders running coding agents who need evidence, not the agent's own account of itself.
+jtbd: Answer what an agent did, saw, may call, and said — offline, with a durable receipt at each step.
+pricing: Free OSS CLI; commercialization deferred.
+launch: built
+launch_blocker: >-
+  Consolidation of seven CLI MVPs is code-complete, vet-clean, and green across
+  all seven test packages. Not yet published: needs copyright review and a
+  public repo. No launch attempt has been made.
+license: MIT
+tags:
+    - agent-ops
+    - observability
+    - receipts
+    - go
+    - cli
+    - offline-first
+checks:
+    - name: test
+      command:
+        - go
+        - test
+        - ./...
+    - name: build
+      command:
+        - go
+        - build
+        - ./...
+    - name: vet
+      command:
+        - go
+        - vet
+        - ./...

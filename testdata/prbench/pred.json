@@ -1,0 +1,5 @@
+[
+  {"id": "nil-deref", "severity": "high"},
+  {"id": "sql-inject", "severity": "critical"},
+  {"id": "style-nit", "severity": "low"}
+]

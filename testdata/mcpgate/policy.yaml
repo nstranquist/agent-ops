@@ -1,0 +1,8 @@
+default: deny
+rules:
+  - server: docs-puller
+    tool: search
+    action: allow
+  - server: shell
+    tool: "*"
+    action: deny
