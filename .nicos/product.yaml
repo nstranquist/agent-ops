@@ -3,15 +3,18 @@ id: product.agent-ops
 name: agent-ops
 surface: products
 kind: product
-status: experimental
+status: shipped
 persona: Local-first builders running coding agents who need evidence, not the agent's own account of itself.
 jtbd: Answer what an agent did, saw, may call, and said — offline, with a durable receipt at each step.
 pricing: Free OSS CLI; commercialization deferred.
 launch: built
 launch_blocker: >-
-  Consolidation of seven CLI MVPs is code-complete, vet-clean, and green across
-  all seven test packages. Not yet published: needs copyright review and a
-  public repo. No launch attempt has been made.
+  Published public at v0.3.0 on 2026-07-25 (github.com/nstranquist/agent-ops),
+  verified installable from the module proxy. Release boundary complete and CI
+  green. Remaining blocker is distribution, not readiness: no announcement, no
+  README badge traffic, zero known external users. Kept at launch=built rather
+  than launched because no launch attempt has been made - publishing a
+  repository is availability, not a launch.
 license: MIT
 tags:
     - agent-ops
