@@ -1,4 +1,4 @@
-.PHONY: test build install vet smoke leak-scan gate publish-ready clean
+.PHONY: test build install vet smoke leak-scan leak-scan-selftest gate publish-ready clean
 
 BIN := bin/agent-ops
 
@@ -44,20 +44,53 @@ smoke: build
 	@./$(BIN) fleet show --slots testdata/fleetboard/slots.json >/dev/null
 	@echo "smoke OK — all seven lanes"
 
-# leak-scan checks the generic leak classes only: absolute home paths and
-# personal *.workers.dev hostnames. A private project-specific banned-fragment
-# list is applied outside this repository before publishing, and is deliberately
-# not committed here — a scan that embeds the strings it forbids publishes them.
+# leak-scan checks the generic leak classes: absolute home paths and personal
+# workers.dev hostnames. A private project-specific banned-fragment list is
+# applied outside this repository before publishing, and is deliberately not
+# committed here — a scan that embeds the strings it forbids publishes them.
+#
+# Two things this got wrong once, both worth keeping fixed:
+#
+#  1. Each pattern requires a concrete leading label, so it matches a real
+#     hostname and not a prose mention of the wildcard form. The earlier pattern
+#     allowed zero leading characters and so matched its own documentation.
+#     Corollary: do not write an example hostname anywhere in this file.
+#  2. The file list includes untracked-but-not-ignored files. Scanning only
+#     tracked files made the local run blind to exactly the new files a release
+#     adds — they pass locally while untracked, then fail CI once committed.
+#  3. Patterns are set with `set --` so single quotes survive; interpolating a
+#     make variable into the loop word-splits it and eats the regex backslashes.
+#  4. The self-test builds its probe hostname from fragments. Writing the
+#     hostname literally here would plant a match in this very file, which is
+#     how the second CI failure happened.
+LEAK_FILES = git ls-files --cached --others --exclude-standard -z
+
 leak-scan:
 	@status=0; \
-	for pat in '/Users/[a-z]' '/home/[a-z]' '[a-z0-9-]*\.workers\.dev'; do \
-	  hits=$$(git ls-files -z | xargs -0 grep -rilE "$$pat" 2>/dev/null | grep -v '^Makefile$$' | wc -l | tr -d ' '); \
-	  printf '%-28s hits=%s\n' "$$pat" "$$hits"; \
-	  [ "$$hits" = "0" ] || status=1; \
+	set -- '/Users/[a-z]' '/home/[a-z]' '[a-z0-9][a-z0-9-]*\.workers\.dev'; \
+	for pat in "$$@"; do \
+	  found=$$($(LEAK_FILES) | xargs -0 grep -rilE -- "$$pat" 2>/dev/null | sort -u); \
+	  hits=$$(printf '%s' "$$found" | grep -c . || true); \
+	  printf '%-34s hits=%s\n' "$$pat" "$$hits"; \
+	  if [ "$$hits" != "0" ]; then printf '%s\n' "$$found" | sed 's/^/    /'; status=1; fi; \
 	done; \
 	[ $$status = 0 ] && echo "leak-scan OK" || { echo "leak-scan FAILED"; exit 1; }
 
-gate: vet test smoke leak-scan
+# leak-scan-selftest proves the scan can actually fail. A gate never observed
+# rejecting anything is not known to work — this one shipped green twice while
+# broken in opposite directions.
+leak-scan-selftest:
+	@w=workers; d=dev; probe=./.leak-probe.md; \
+	printf 'contact https://example-private.%s.%s/admin\n' "$$w" "$$d" > "$$probe"; \
+	if $(MAKE) --no-print-directory leak-scan >/dev/null 2>&1; then \
+	  rm -f "$$probe"; echo "leak-scan-selftest FAILED: scan accepted a planted leak"; exit 1; \
+	fi; \
+	rm -f "$$probe"; \
+	$(MAKE) --no-print-directory leak-scan >/dev/null 2>&1 || { \
+	  echo "leak-scan-selftest FAILED: scan still red after probe removal"; exit 1; }; \
+	echo "leak-scan-selftest OK — planted leak rejected, clean tree accepted"
+
+gate: vet test smoke leak-scan leak-scan-selftest
 	@echo "agent-ops gate OK"
 
 publish-ready: gate
