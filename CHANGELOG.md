@@ -2,6 +2,29 @@
 
 All notable changes to `agent-ops` are recorded here.
 
+## [0.3.1] — 2026-07-25
+
+### Fixed
+
+- **`make leak-scan` was broken in both directions and shipped green twice.**
+  Its pattern allowed zero leading characters, so it matched prose mentions of
+  the wildcard hostname form — including its own comment and `DISTRIBUTION.md`.
+  Separately it scanned `git ls-files` (tracked only), leaving it blind to
+  exactly the files a release adds: `DISTRIBUTION.md` passed locally while
+  untracked, then failed CI once committed. Patterns interpolated from a make
+  variable were also word-split, silently degrading `\.` to `.`.
+- Patterns now require a concrete leading label, the file list covers
+  `--cached --others --exclude-standard`, and patterns are set via `set --`.
+
+### Added
+
+- **`make leak-scan-selftest`**, wired into `gate`. Plants a synthetic leak,
+  asserts the scan rejects it, removes it, asserts the scan goes clean. A gate
+  never observed rejecting anything is not known to work.
+
+No change to any command's behaviour; `0.3.0` and `0.3.1` are identical as a
+library and CLI.
+
 ## [0.3.0] — 2026-07-25
 
 First release as a single binary, and the first public release.

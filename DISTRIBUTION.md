@@ -1,6 +1,6 @@
 # Distribution readiness — agent-ops
 
-**Version:** v0.3.0
+**Version:** v0.3.1
 **License:** MIT
 **Module:** `github.com/nstranquist/agent-ops`
 
