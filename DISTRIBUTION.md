@@ -40,11 +40,9 @@ the generic classes (`make leak-scan`): absolute home paths and personal
 make leak-scan
 ```
 
-A private, project-specific banned-fragment list is maintained outside this
-repository and is applied before publishing. **That list is deliberately not
-committed here** — a scan that embeds the strings it forbids publishes them, and
-the fragments are private by definition. Last run 2026-07-25 over 55 tracked
-files: clean on all fragments.
+A second, private denylist is applied before publishing and is **deliberately
+not committed here**: a scan that embeds the strings it forbids would publish
+them. Last run 2026-07-25 over all tracked files: clean.
 
 ## Boundary
 

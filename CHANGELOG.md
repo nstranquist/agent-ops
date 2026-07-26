@@ -62,6 +62,6 @@ renumbering it would have made every prior local install ambiguous.
 
 ## Prior history
 
-The seven predecessor repositories were created on 2026-07-21 and were marked
-`deprecated, superseded by agent-ops` on 2026-07-25. Their histories remain in
-those local repositories and are not replayed here.
+The seven predecessor tools were written on 2026-07-21 and retired into this
+repository on 2026-07-25. Their individual commit histories are not replayed
+here; `0.3.0` is the first release of the combined tool.
