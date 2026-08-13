@@ -1,6 +1,6 @@
 # Distribution readiness — agent-ops
 
-**Version:** v0.3.1
+**Version:** v0.3.2
 **License:** MIT
 **Module:** `github.com/nstranquist/agent-ops`
 
@@ -42,7 +42,7 @@ make leak-scan
 
 A second, private denylist is applied before publishing and is **deliberately
 not committed here**: a scan that embeds the strings it forbids would publish
-them. Last run 2026-07-25 over all tracked files: clean.
+them. Last run 2026-08-13 over all tracked and untracked files: clean.
 
 ## Boundary
 

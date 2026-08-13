@@ -9,16 +9,29 @@ jtbd: Answer what an agent did, saw, may call, and said — offline, with a dura
 pricing: Free and open source under MIT.
 launch: built
 launch_blocker: >-
-  Published public at v0.3.1 and installable from the Go module proxy. Release
-  boundary complete and CI green. Not yet announced.
+  Prepared as public v0.3.2 and installable from the Go module proxy after the
+  release tag is published. The local release gate is complete. Public CI and
+  the signed-out tag check remain release-time gates.
 license: MIT
 tags:
     - agent-ops
+    - claimguard
+    - claims
     - observability
     - receipts
     - go
     - cli
     - offline-first
+refs:
+    - kind: implements
+      target: recipe.claimguard
+    - kind: replaces
+      target: product.claimguard
+description: >-
+  Consolidated local-first agent operations CLI for trace summaries, context
+  packing, MCP policy, ClaimGuard-compatible verified-claims checks, evidence
+  manifests, PR benchmarks, and fleet visibility. The claims surface
+  supersedes the deprecated standalone ClaimGuard binary.
 checks:
     - name: test
       command:
@@ -35,3 +48,7 @@ checks:
         - go
         - vet
         - ./...
+recipe_id: recipe.claimguard
+recipe_version: 1
+realization:
+    lineage: consolidate-2026-07-25

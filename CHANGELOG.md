@@ -2,6 +2,24 @@
 
 All notable changes to `agent-ops` are recorded here.
 
+## [0.3.2] — 2026-08-13
+
+### Fixed
+
+- The claims extractor now keeps grouped numbers such as `1,000+` and `50,000`
+  as complete tokens. It no longer reports truncated values such as `000+`.
+- JobKit-style `allowed:` entries can contain a reviewed claim sentence. The
+  gate extracts and compares the quantified token exactly. A reviewed money,
+  percentage, or lower-bound claim cannot authorize a bare count with the same
+  digits.
+- The claims command now rejects a flag with no value or an unknown flag with a
+  usage error instead of panicking.
+
+### Changed
+
+- The product manifest names the ClaimGuard-compatible claims surface so the
+  maintained replacement is discoverable after catalog refresh.
+
 ## [0.3.1] — 2026-07-25
 
 ### Fixed

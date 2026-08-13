@@ -32,14 +32,16 @@ type Violation struct {
 
 // Report is the primary product observable.
 type Report struct {
-	OK          bool         `json:"ok"`
-	Violations  []Violation  `json:"violations"`
-	CheckedText string       `json:"checked_text_preview"`
+	OK          bool        `json:"ok"`
+	Violations  []Violation `json:"violations"`
+	CheckedText string      `json:"checked_text_preview"`
 }
 
 var (
-	// percentages, money, N+, and bare numbers with 3+ digits (skips short counters like "30 days")
-	claimRe = regexp.MustCompile(`(?i)(\$\d[\d,]*(?:\.\d+)?(?:k|m|b)?|\d+(?:\.\d+)?%|\d+\+|\b\d{3,}\b)`)
+	// Percentages, money, grouped or bare N+, magnitude N+, and bare numbers
+	// with 3+ digits. Grouped numbers must be one token: extracting "000+"
+	// from "1,000+" makes a correct allowlist fail.
+	claimRe = regexp.MustCompile(`(?i)(\$\d[\d,]*(?:\.\d+)?(?:k|m|b)?|\d+(?:\.\d+)?%|\b\d[\d,]*(?:\.\d+)?(?:k|m|b)?\+|\b(?:\d{1,3}(?:,\d{3})+|\d{3,})\b)`)
 )
 
 // ExtractClaims finds quantified claim tokens.
@@ -67,13 +69,10 @@ func normalizeClaim(s string) string {
 }
 
 func Check(text string, allow ClaimsFile) Report {
-	allowSet := map[string]struct{}{}
-	for _, c := range allow.Entries() {
-		allowSet[normalizeClaim(c)] = struct{}{}
-	}
+	allowed := allowedClaimTokens(allow.Entries())
 	var viol []Violation
 	for _, tok := range ExtractClaims(text) {
-		if _, ok := allowSet[normalizeClaim(tok)]; ok {
+		if _, ok := allowed[normalizeClaim(tok)]; ok {
 			continue
 		}
 		viol = append(viol, Violation{Token: tok, Context: window(text, tok)})
@@ -83,6 +82,19 @@ func Check(text string, allow ClaimsFile) Report {
 		prev = prev[:160] + "…"
 	}
 	return Report{OK: len(viol) == 0, Violations: viol, CheckedText: prev}
+}
+
+// allowedClaimTokens extracts the same quantified shapes from reviewed
+// sentences that Check extracts from generated text. Exact token comparison is
+// intentional: "$100", "100%", "100+", and bare "100" are different claims.
+func allowedClaimTokens(entries []string) map[string]struct{} {
+	allowed := make(map[string]struct{}, len(entries))
+	for _, entry := range entries {
+		for _, token := range ExtractClaims(entry) {
+			allowed[normalizeClaim(token)] = struct{}{}
+		}
+	}
+	return allowed
 }
 
 func window(text, tok string) string {

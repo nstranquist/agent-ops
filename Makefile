@@ -36,6 +36,10 @@ smoke: build
 	@./$(BIN) claims check --claims testdata/claimguard/claims.yaml --file testdata/claimguard/draft-good.md >/dev/null
 	@echo "--- claims (fail-closed: unverified claim must be rejected)"
 	@! ./$(BIN) claims check --claims testdata/claimguard/claims.yaml --file testdata/claimguard/draft-bad.md >/dev/null 2>&1
+	@echo "--- claims (malformed flag: usage error, no panic)"
+	@status=0; output=$$(./$(BIN) claims check --claims 2>&1) || status=$$?; \
+		test "$$status" -eq 2; \
+		! printf '%s\n' "$$output" | grep -q 'panic:'
 	@echo "--- evidence"
 	@./$(BIN) evidence verify --root testdata/evidence-vault/pack --manifest testdata/evidence-vault/manifest.yaml >/dev/null
 	@echo "--- bench"
