@@ -112,6 +112,9 @@ saw as its own binary. What changed is that there is now one story, one install,
 one test suite, and one place to look — and six fewer half-finished-looking
 repositories.
 
+The [case study](CASE_STUDY.md) explains the design decisions, failure modes,
+verification, and current evidence limits.
+
 ## License
 
 MIT.
