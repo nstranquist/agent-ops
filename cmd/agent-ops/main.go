@@ -34,7 +34,7 @@ var subcommands = []struct {
 	{"trace", "parse, index, and search local Claude/Codex agent sessions", agentTraceMain},
 	{"context", "budgeted progressive hydration with an inclusion/omission receipt", contextPackMain},
 	{"mcp", "local MCP tool-call policy gate with a durable audit log", mcpGateMain},
-	{"claims", "fail-closed verified-claims gate for AI-generated text", claimGuardMain},
+	{"claims", "reject unproven numbers in AI-generated text", claimGuardMain},
 	{"evidence", "capture and verify evidence packs (required paths + digests)", evidenceVaultMain},
 	{"bench", "fixture-based code-review eval with an F1 leaderboard", prBenchMain},
 	{"fleet", "multi-agent parallel work board", fleetBoardMain},
@@ -72,7 +72,7 @@ func main() {
 
 func usage() {
 	w := os.Stderr
-	fmt.Fprintf(w, "agent-ops %s — local-first agent operations, with receipts\n\nUSAGE\n  agent-ops <command> [args]\n\nCOMMANDS\n", version)
+	fmt.Fprintf(w, "agent-ops %s — local records of what an AI agent did\n\nUSAGE\n  agent-ops <command> [args]\n\nCOMMANDS\n", version)
 	for _, sub := range subcommands {
 		fmt.Fprintf(w, "  %-9s %s\n", sub.name, sub.desc)
 	}

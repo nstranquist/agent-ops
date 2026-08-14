@@ -1,9 +1,9 @@
 # agent-ops
 
-**Local-first agent operations, with receipts.**
+**Local records of what an AI agent did on your machine.**
 
-When an AI agent does work on your machine, seven questions matter and none of
-them are answerable by the agent's own claim about itself:
+When an AI agent does work on your computer, seven questions matter. The
+agent's own claim about itself does not answer them:
 
 | Question | Command |
 |---|---|
@@ -15,9 +15,18 @@ them are answerable by the agent's own claim about itself:
 | How good is the **review**? | `agent-ops bench` |
 | What is **running** now? | `agent-ops fleet` |
 
-Every answer is a durable artifact — an index, a receipt, an audit line, a
-digest — produced offline from local files. Nothing phones home, and nothing
-asks the model to grade itself.
+Every answer is a local file: an index, a receipt, an audit line, or a
+digest. A receipt is a record you can open later to see what happened.
+Nothing sends data off the machine, and nothing asks the model to score
+itself.
+
+## Terms
+
+| Term | Meaning |
+| --- | --- |
+| Local-first | The tool works on your computer. A cloud account is not required. |
+| Fail-closed | If a check cannot prove the result is safe, the command stops. Missing evidence is treated as a failure. |
+| Receipt | A local file that records what happened so you can check it later. |
 
 ## Install
 
@@ -64,9 +73,9 @@ agent-ops mcp decide --policy policy.yaml --server github --tool create_pr     #
 without parsing its JSON. The audit line is appended either way.
 
 ### `claims` — what the agent said
-A fail-closed verified-claims gate for AI-generated text. Any quantified claim
-that is not in the allowlist is a violation. This is the thing that stops a
-draft asserting "3× faster" when nobody measured it.
+A fail-closed check for numbers in AI-generated text. If a quantity is not on
+the allowlist, the check fails. This stops a draft from asserting "3× faster"
+when nobody measured it.
 
 ```sh
 agent-ops claims check --claims claims.yaml --file draft.md
