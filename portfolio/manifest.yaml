@@ -1,0 +1,12 @@
+schema_version: 1
+product_id: product.agent-ops
+visibility: public
+reviewed: true
+assets:
+    - path: screenshots/context-pack.png
+      kind: screenshot
+      alt: agent-ops context pack receipt from the checked-in fixture
+      caption: Receipt from testdata/contextpack/chunks.json. 57 of 800 tokens used; all three chunks included.
+case_study:
+    enabled: false
+    evidence: []

@@ -20,6 +20,14 @@ digest. A receipt is a record you can open later to see what happened.
 Nothing sends data off the machine, and nothing asks the model to score
 itself.
 
+## Showcase
+
+![agent-ops context pack receipt from the checked-in fixture](screenshots/context-pack.png)
+
+The card is a receipt from `testdata/contextpack/chunks.json` (57 of 800
+tokens used; all three chunks included). Extra shots go in
+[screenshots/](screenshots/).
+
 ## Terms
 
 | Term | Meaning |
