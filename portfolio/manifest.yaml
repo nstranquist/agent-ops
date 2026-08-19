@@ -1,12 +1,45 @@
-schema_version: 1
+schema_version: 2
 product_id: product.agent-ops
 visibility: public
 reviewed: true
+presentation:
+    summary: One offline CLI for evidence-backed coding-agent operations.
+    detail: Inspect traces, pack bounded context, enforce MCP policy, verify claims, produce evidence manifests, benchmark reviews, and observe a local agent fleet through typed receipts.
+    language: Go
+    lane: AI systems and agent operations
+access:
+    profile: go-cli
+    primary_action:
+        kind: install
+        label: Install agent-ops
+        url: https://github.com/nstranquist/agent-ops#install
+    repository_url: https://github.com/nstranquist/agent-ops
+    documentation_url: https://github.com/nstranquist/agent-ops#the-commands
+    feedback_url: https://github.com/nstranquist/agent-ops/issues/new
+    module: github.com/nstranquist/agent-ops
+    binary: agent-ops
+    smoke_argv: [go, run, ./cmd/agent-ops, --help]
+proof:
+    claims:
+        - id: seven-surfaces-one-binary
+          statement: One dispatcher exposes trace, context, MCP, claims, evidence, benchmark, and fleet workflows.
+          evidence_kind: documentation
+          evidence_url: https://github.com/nstranquist/agent-ops#the-commands
+        - id: bounded-context-receipt
+          statement: Context packing emits a durable receipt that records the selected chunks and token budget.
+          evidence_kind: demo
+          evidence_url: https://github.com/nstranquist/agent-ops#showcase
+    boundaries:
+        - Receipts show what the local tools observed; they do not prove every action an external agent took.
+        - Public fixtures and screenshots exclude private session content.
 assets:
     - path: screenshots/context-pack.png
       kind: screenshot
       alt: agent-ops context pack receipt from the checked-in fixture
       caption: Receipt from testdata/contextpack/chunks.json. 57 of 800 tokens used; all three chunks included.
+      public: true
+      provenance: local-synthetic-fixture-capture
+      copyright_owner: Nico Stranquist
 case_study:
     enabled: false
     evidence: []

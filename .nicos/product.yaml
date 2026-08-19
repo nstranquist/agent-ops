@@ -52,3 +52,4 @@ recipe_id: recipe.claimguard
 recipe_version: 1
 realization:
     lineage: consolidate-2026-07-25
+portfolio_manifest: portfolio/manifest.yaml
