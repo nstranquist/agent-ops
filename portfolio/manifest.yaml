@@ -28,7 +28,7 @@ proof:
         - id: bounded-context-receipt
           statement: Context packing emits a durable receipt that records the selected chunks and token budget.
           evidence_kind: demo
-          evidence_url: https://github.com/nstranquist/agent-ops#showcase
+          evidence_url: https://github.com/nstranquist/agent-ops#context--what-the-agent-saw
     boundaries:
         - Receipts show what the local tools observed; they do not prove every action an external agent took.
         - Public fixtures and screenshots exclude private session content.
