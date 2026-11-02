@@ -9,7 +9,7 @@ jtbd: Answer what an agent did, saw, may call, and said — offline, with a dura
 pricing: Free and open source under MIT.
 launch: built
 launch_blocker: >-
-  Prepared as public v0.3.2 and installable from the Go module proxy after the
+  Prepared as public v0.3.3 and installable from the Go module proxy after the
   release tag is published. The local release gate is complete. Public CI and
   the signed-out tag check remain release-time gates.
 license: MIT

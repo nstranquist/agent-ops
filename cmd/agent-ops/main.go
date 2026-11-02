@@ -22,7 +22,7 @@ import (
 	"os"
 )
 
-const version = "v0.3.2"
+const version = "v0.3.3"
 
 // subcommands maps the public verb to the consolidated tool entry point and its
 // one-line description.

@@ -2,6 +2,42 @@
 
 All notable changes to `agent-ops` are recorded here.
 
+## [0.3.3] — 2026-11-02
+
+No command behavior changed in this release. It ships the plain-language CLI
+help, a public product passport, and supporting docs and CI updates.
+
+### Changed
+
+- `agent-ops --help` uses plain language. The banner now reads "local records
+  of what an AI agent did", and the `claims` entry reads "reject unproven
+  numbers in AI-generated text".
+- The README explains each command in plain language.
+
+### Added
+
+- **Public product passport.** `portfolio/manifest.yaml` moves to schema
+  version 2. It adds a presentation summary, access details (install action,
+  repository, documentation, feedback, module, binary, and a `--help` smoke
+  command), two proof claims with evidence links, stated boundaries, and asset
+  provenance. `.nicos/product.yaml` points to the manifest.
+- `CASE_STUDY.md` gives a verified case study with links to the public
+  evidence.
+- `screenshots/context-pack.png` is a context-pack receipt captured from the
+  checked-in fixture.
+
+### Fixed
+
+- The passport's bounded-context proof claim now links to the README's
+  `context` command section (`#context--what-the-agent-saw`). Before, it linked
+  to the general `#showcase` section.
+
+### Maintenance
+
+- CI pins `actions/checkout` (v7.0.1) and `actions/setup-go` (v7.0.0) to full
+  commit SHAs.
+- `.gitignore` excludes the root `agent-ops` build binary.
+
 ## [0.3.2] — 2026-08-13
 
 ### Fixed
