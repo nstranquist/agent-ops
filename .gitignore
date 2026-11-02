@@ -1,3 +1,4 @@
 bin/
+/agent-ops
 .build/
 *.db
